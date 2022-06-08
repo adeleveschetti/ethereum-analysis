@@ -11,8 +11,6 @@ const double r = 1;
 const double p =1/14;
 const double np = 1-p;
 
-const int penality = 30;
-
 const int HasherRes = 0;
 
 const int Start = 0;
