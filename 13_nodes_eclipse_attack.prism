@@ -47,7 +47,7 @@ module Validator0
 	numFinBlocks0 : [0..N] init 0;
 	finalized0 : bool init false;
 	justified0 : bool init false;
-	succAttack0 : bool init false;
+	eclipseAttack0 : bool init false;
 	nBlocks : [0..N] init 0;
 	nBlocksAttack : [0..N] init 0;
 	attack : bool init true;
@@ -72,7 +72,7 @@ module Validator0
 
   	[voteBlock0] (M0_STATE=Vote) -> 1 : (listCheckpoints0'=addBlockSet(listCheckpoints0,b0))&(M0_STATE'=Start);
 
-  	[] (M0_STATE=Check)&(votes0>=2/3*tot_stake)&(heightLast0=heightCheckpoint0+EpochSize) -> rIst : (numFinBlocks0'=numFinBlocks0+1)&(lastFinalized0'=lastJustified0)&(lastJustified0'=lastCheck0)&(succAttack0'=((isVictim(b0))?true:false))&(heightCheckpoint0'=heightLast0)&(listCheckpoints0'=removeBlock(listCheckpoints0,lastCheck0))&(B0'=updateHF(B0,lastJustified0))&(M0_STATE'=Fin)&(tmp0'=0)&(justified0'=true)&(finalized0'=true);
+  	[] (M0_STATE=Check)&(votes0>=2/3*tot_stake)&(heightLast0=heightCheckpoint0+EpochSize) -> rIst : (numFinBlocks0'=numFinBlocks0+1)&(lastFinalized0'=lastJustified0)&(lastJustified0'=lastCheck0)&(eclipseAttack0'=((isVictim(b0))?true:false))&(heightCheckpoint0'=heightLast0)&(listCheckpoints0'=removeBlock(listCheckpoints0,lastCheck0))&(B0'=updateHF(B0,lastJustified0))&(M0_STATE'=Fin)&(tmp0'=0)&(justified0'=true)&(finalized0'=true);
   	[] (M0_STATE=Check)&(votes0>=2/3*tot_stake)&(heightLast0!=heightCheckpoint0+EpochSize)&(heightLast0>heightCheckpoint0) -> rIst : (lastJustified0'=lastCheck0)&(heightCheckpoint0'=heightLast0)&(listCheckpoints0'=removeBlock(listCheckpoints0,lastCheck0))&(M0_STATE'=Start)&(tmp0'=0)&(B0'=updateJust(B0,lastJustified0))&(justified0'=true);
 		[] (M0_STATE=Check)&((votes0<=2/3*tot_stake)&(heightLast0<=heightCheckpoint0)|((votes0>=2/3*tot_stake)&(heightLast0<=heightCheckpoint0))) -> rIst: (listCheckpoints0'=removeBlock(listCheckpoints0,lastCheck0))&(M0_STATE'=Start)&(tmp0'=0);
 		[] (M0_STATE=Check)&(votes0<=2/3*tot_stake)&(heightLast0>heightCheckpoint0) -> rIst: (M0_STATE'=Start)&(tmp0'=0);
@@ -99,7 +99,7 @@ module Validator1
 	numFinBlocks1 : [0..N] init 0;
 	finalized1 : bool init false;
 	justified1 : bool init false;
-	succAttack1 : bool init false;
+	eclipseAttack1 : bool init false;
 
   	[] (M1_STATE=Start) -> p : (justified1'=false)&(b1'=createB(lastJustified1,B1,c1))&(c1'=c1+1)&(M1_STATE'=Winner);
   	[] (M1_STATE=Start) -> np : (M1_STATE'=Lost);
@@ -115,7 +115,7 @@ module Validator1
 
   	[voteBlock1] (M1_STATE=Vote) -> 1 : (listCheckpoints1'=addBlockSet(listCheckpoints1,b1))&(M1_STATE'=Start);
 
-  	[] (M1_STATE=Check)&(votes1>=2/3*tot_stake)&(heightLast1=heightCheckpoint1+EpochSize) -> rIst : (numFinBlocks1'=numFinBlocks1+1)&(lastFinalized1'=lastJustified1)&(lastJustified1'=lastCheck1)&(succAttack1'=((isVictim(b1))?true:false))&(heightCheckpoint1'=heightLast1)&(listCheckpoints1'=removeBlock(listCheckpoints1,lastCheck1))&(B1'=updateHF(B1,lastJustified1))&(M1_STATE'=Fin)&(tmp1'=0)&(justified1'=true)&(finalized1'=true);
+  	[] (M1_STATE=Check)&(votes1>=2/3*tot_stake)&(heightLast1=heightCheckpoint1+EpochSize) -> rIst : (numFinBlocks1'=numFinBlocks1+1)&(lastFinalized1'=lastJustified1)&(lastJustified1'=lastCheck1)&(eclipseAttack1'=((isVictim(b1))?true:false))&(heightCheckpoint1'=heightLast1)&(listCheckpoints1'=removeBlock(listCheckpoints1,lastCheck1))&(B1'=updateHF(B1,lastJustified1))&(M1_STATE'=Fin)&(tmp1'=0)&(justified1'=true)&(finalized1'=true);
   	[] (M1_STATE=Check)&(votes1>=2/3*tot_stake)&(heightLast1!=heightCheckpoint1+EpochSize)&(heightLast1>heightCheckpoint1) -> rIst : (lastJustified1'=lastCheck1)&(heightCheckpoint1'=heightLast1)&(listCheckpoints1'=removeBlock(listCheckpoints1,lastCheck1))&(M1_STATE'=Start)&(tmp1'=0)&(B1'=updateJust(B1,lastJustified1))&(justified1'=true);
 	[] (M1_STATE=Check)&((votes1<=2/3*tot_stake)&(heightLast1<=heightCheckpoint1)|((votes1>=2/3*tot_stake)&(heightLast1<=heightCheckpoint1))) -> rIst: (listCheckpoints1'=removeBlock(listCheckpoints1,lastCheck1))&(M1_STATE'=Start)&(tmp1'=0);
 	[] (M1_STATE=Check)&(votes1<=2/3*tot_stake)&(heightLast1>heightCheckpoint1) -> rIst: (M1_STATE'=Start)&(tmp1'=0);
@@ -142,7 +142,7 @@ module Validator2
 	numFinBlocks2 : [0..N] init 0;
 	finalized2 : bool init false;
 	justified2 : bool init false;
-	succAttack2 : bool init false;
+	eclipseAttack2 : bool init false;
 
   	[] (M2_STATE=Start) -> p : (justified2'=false)&(b2'=createB(lastJustified2,B2,c2))&(c2'=c2+1)&(M2_STATE'=Winner);
   	[] (M2_STATE=Start) -> np : (M2_STATE'=Lost);
@@ -158,7 +158,7 @@ module Validator2
 
   	[voteBlock2] (M2_STATE=Vote) -> 1 : (listCheckpoints2'=addBlockSet(listCheckpoints2,b2))&(M2_STATE'=Start);
 
-  	[] (M2_STATE=Check)&(votes2>=2/3*tot_stake)&(heightLast2=heightCheckpoint2+EpochSize) -> rIst : (numFinBlocks2'=numFinBlocks2+1)&(lastFinalized2'=lastJustified2)&(lastJustified2'=lastCheck2)&(succAttack2'=((isVictim(b2))?true:false))&(heightCheckpoint2'=heightLast2)&(listCheckpoints2'=removeBlock(listCheckpoints2,lastCheck2))&(B2'=updateHF(B2,lastJustified2))&(M2_STATE'=Fin)&(tmp2'=0)&(justified2'=true)&(finalized2'=true);
+  	[] (M2_STATE=Check)&(votes2>=2/3*tot_stake)&(heightLast2=heightCheckpoint2+EpochSize) -> rIst : (numFinBlocks2'=numFinBlocks2+1)&(lastFinalized2'=lastJustified2)&(lastJustified2'=lastCheck2)&(eclipseAttack2'=((isVictim(b2))?true:false))&(heightCheckpoint2'=heightLast2)&(listCheckpoints2'=removeBlock(listCheckpoints2,lastCheck2))&(B2'=updateHF(B2,lastJustified2))&(M2_STATE'=Fin)&(tmp2'=0)&(justified2'=true)&(finalized2'=true);
   	[] (M2_STATE=Check)&(votes2>=2/3*tot_stake)&(heightLast2!=heightCheckpoint2+EpochSize)&(heightLast2>heightCheckpoint2) -> rIst : (lastJustified2'=lastCheck2)&(heightCheckpoint2'=heightLast2)&(listCheckpoints2'=removeBlock(listCheckpoints2,lastCheck2))&(M2_STATE'=Start)&(tmp2'=0)&(B2'=updateJust(B2,lastJustified2))&(justified2'=true);
 	[] (M2_STATE=Check)&((votes2<=2/3*tot_stake)&(heightLast2<=heightCheckpoint2)|((votes2>=2/3*tot_stake)&(heightLast2<=heightCheckpoint2))) -> rIst: (listCheckpoints2'=removeBlock(listCheckpoints2,lastCheck2))&(M2_STATE'=Start)&(tmp2'=0);
 	[] (M2_STATE=Check)&(votes2<=2/3*tot_stake)&(heightLast2>heightCheckpoint2) -> rIst: (M2_STATE'=Start)&(tmp2'=0);
@@ -185,7 +185,7 @@ module Validator3
 	numFinBlocks3 : [0..N] init 0;
 	finalized3 : bool init false;
 	justified3 : bool init false;
-	succAttack3 : bool init false;
+	eclipseAttack3 : bool init false;
 
   	[] (M3_STATE=Start) -> p : (justified3'=false)&(b3'=createB(lastJustified3,B3,c3))&(c3'=c3+1)&(M3_STATE'=Winner);
   	[] (M3_STATE=Start) -> np : (M3_STATE'=Lost);
@@ -201,7 +201,7 @@ module Validator3
 
   	[voteBlock3] (M3_STATE=Vote) -> 1 : (listCheckpoints3'=addBlockSet(listCheckpoints3,b3))&(M3_STATE'=Start);
 
-  	[] (M3_STATE=Check)&(votes3>=2/3*tot_stake)&(heightLast3=heightCheckpoint3+EpochSize) -> rIst : (numFinBlocks3'=numFinBlocks3+1)&(lastFinalized3'=lastJustified3)&(lastJustified3'=lastCheck3)&(succAttack3'=((isVictim(b3))?true:false))&(heightCheckpoint3'=heightLast3)&(listCheckpoints3'=removeBlock(listCheckpoints3,lastCheck3))&(B3'=updateHF(B3,lastJustified3))&(M3_STATE'=Fin)&(tmp3'=0)&(justified3'=true)&(finalized3'=true);
+  	[] (M3_STATE=Check)&(votes3>=2/3*tot_stake)&(heightLast3=heightCheckpoint3+EpochSize) -> rIst : (numFinBlocks3'=numFinBlocks3+1)&(lastFinalized3'=lastJustified3)&(lastJustified3'=lastCheck3)&(eclipseAttack3'=((isVictim(b3))?true:false))&(heightCheckpoint3'=heightLast3)&(listCheckpoints3'=removeBlock(listCheckpoints3,lastCheck3))&(B3'=updateHF(B3,lastJustified3))&(M3_STATE'=Fin)&(tmp3'=0)&(justified3'=true)&(finalized3'=true);
   	[] (M3_STATE=Check)&(votes3>=2/3*tot_stake)&(heightLast3!=heightCheckpoint3+EpochSize)&(heightLast3>heightCheckpoint3) -> rIst : (lastJustified3'=lastCheck3)&(heightCheckpoint3'=heightLast3)&(listCheckpoints3'=removeBlock(listCheckpoints3,lastCheck3))&(M3_STATE'=Start)&(tmp3'=0)&(B3'=updateJust(B3,lastJustified3))&(justified3'=true);
 	[] (M3_STATE=Check)&((votes3<=2/3*tot_stake)&(heightLast3<=heightCheckpoint3)|((votes3>=2/3*tot_stake)&(heightLast3<=heightCheckpoint3))) -> rIst: (listCheckpoints3'=removeBlock(listCheckpoints3,lastCheck3))&(M3_STATE'=Start)&(tmp3'=0);
 	[] (M3_STATE=Check)&(votes3<=2/3*tot_stake)&(heightLast3>heightCheckpoint3) -> rIst: (M3_STATE'=Start)&(tmp3'=0);
@@ -228,7 +228,7 @@ module Validator4
 	numFinBlocks4 : [0..N] init 0;
 	finalized4 : bool init false;
 	justified4 : bool init false;
-	succAttack4 : bool init false;
+	eclipseAttack4 : bool init false;
 
   	[] (M4_STATE=Start) -> p : (justified4'=false)&(b4'=createB(lastJustified4,B4,c4))&(c4'=c4+1)&(M4_STATE'=Winner);
   	[] (M4_STATE=Start) -> np : (M4_STATE'=Lost);
@@ -244,7 +244,7 @@ module Validator4
 
   	[voteBlock4] (M4_STATE=Vote) -> 1 : (listCheckpoints4'=addBlockSet(listCheckpoints4,b4))&(M4_STATE'=Start);
 
-  	[] (M4_STATE=Check)&(votes4>=2/3*tot_stake)&(heightLast4=heightCheckpoint4+EpochSize) -> rIst : (numFinBlocks4'=numFinBlocks4+1)&(lastFinalized4'=lastJustified4)&(lastJustified4'=lastCheck4)&(succAttack4'=((isVictim(b4))?true:false))&(heightCheckpoint4'=heightLast4)&(listCheckpoints4'=removeBlock(listCheckpoints4,lastCheck4))&(B4'=updateHF(B4,lastJustified4))&(M4_STATE'=Fin)&(tmp4'=0)&(justified4'=true)&(finalized4'=true);
+  	[] (M4_STATE=Check)&(votes4>=2/3*tot_stake)&(heightLast4=heightCheckpoint4+EpochSize) -> rIst : (numFinBlocks4'=numFinBlocks4+1)&(lastFinalized4'=lastJustified4)&(lastJustified4'=lastCheck4)&(eclipseAttack4'=((isVictim(b4))?true:false))&(heightCheckpoint4'=heightLast4)&(listCheckpoints4'=removeBlock(listCheckpoints4,lastCheck4))&(B4'=updateHF(B4,lastJustified4))&(M4_STATE'=Fin)&(tmp4'=0)&(justified4'=true)&(finalized4'=true);
   	[] (M4_STATE=Check)&(votes4>=2/3*tot_stake)&(heightLast4!=heightCheckpoint4+EpochSize)&(heightLast4>heightCheckpoint4) -> rIst : (lastJustified4'=lastCheck4)&(heightCheckpoint4'=heightLast4)&(listCheckpoints4'=removeBlock(listCheckpoints4,lastCheck4))&(M4_STATE'=Start)&(tmp4'=0)&(B4'=updateJust(B4,lastJustified4))&(justified4'=true);
 	[] (M4_STATE=Check)&((votes4<=2/3*tot_stake)&(heightLast4<=heightCheckpoint4)|((votes4>=2/3*tot_stake)&(heightLast4<=heightCheckpoint4))) -> rIst: (listCheckpoints4'=removeBlock(listCheckpoints4,lastCheck4))&(M4_STATE'=Start)&(tmp4'=0);
 	[] (M4_STATE=Check)&(votes4<=2/3*tot_stake)&(heightLast4>heightCheckpoint4) -> rIst: (M4_STATE'=Start)&(tmp4'=0);
@@ -271,7 +271,7 @@ module Validator5
 	numFinBlocks5 : [0..N] init 0;
 	finalized5 : bool init false;
 	justified5 : bool init false;
-	succAttack5 : bool init false;
+	eclipseAttack5 : bool init false;
 
   	[] (M5_STATE=Start) -> p : (justified5'=false)&(b5'=createB(lastJustified5,B5,c5))&(c5'=c5+1)&(M5_STATE'=Winner);
   	[] (M5_STATE=Start) -> np : (M5_STATE'=Lost);
@@ -287,7 +287,7 @@ module Validator5
 
   	[voteBlock5] (M5_STATE=Vote) -> 1 : (listCheckpoints5'=addBlockSet(listCheckpoints5,b5))&(M5_STATE'=Start);
 
-  	[] (M5_STATE=Check)&(votes5>=2/3*tot_stake)&(heightLast5=heightCheckpoint5+EpochSize) -> rIst : (numFinBlocks5'=numFinBlocks5+1)&(lastFinalized5'=lastJustified5)&(lastJustified5'=lastCheck5)&(succAttack5'=((isVictim(b5))?true:false))&(heightCheckpoint5'=heightLast5)&(listCheckpoints5'=removeBlock(listCheckpoints5,lastCheck5))&(B5'=updateHF(B5,lastJustified5))&(M5_STATE'=Fin)&(tmp5'=0)&(justified5'=true)&(finalized5'=true);
+  	[] (M5_STATE=Check)&(votes5>=2/3*tot_stake)&(heightLast5=heightCheckpoint5+EpochSize) -> rIst : (numFinBlocks5'=numFinBlocks5+1)&(lastFinalized5'=lastJustified5)&(lastJustified5'=lastCheck5)&(eclipseAttack5'=((isVictim(b5))?true:false))&(heightCheckpoint5'=heightLast5)&(listCheckpoints5'=removeBlock(listCheckpoints5,lastCheck5))&(B5'=updateHF(B5,lastJustified5))&(M5_STATE'=Fin)&(tmp5'=0)&(justified5'=true)&(finalized5'=true);
   	[] (M5_STATE=Check)&(votes5>=2/3*tot_stake)&(heightLast5!=heightCheckpoint5+EpochSize)&(heightLast5>heightCheckpoint5) -> rIst : (lastJustified5'=lastCheck5)&(heightCheckpoint5'=heightLast5)&(listCheckpoints5'=removeBlock(listCheckpoints5,lastCheck5))&(M5_STATE'=Start)&(tmp5'=0)&(B5'=updateJust(B5,lastJustified5))&(justified5'=true);
 	[] (M5_STATE=Check)&((votes5<=2/3*tot_stake)&(heightLast5<=heightCheckpoint5)|((votes5>=2/3*tot_stake)&(heightLast5<=heightCheckpoint5))) -> rIst: (listCheckpoints5'=removeBlock(listCheckpoints5,lastCheck5))&(M5_STATE'=Start)&(tmp5'=0);
 	[] (M5_STATE=Check)&(votes5<=2/3*tot_stake)&(heightLast5>heightCheckpoint5) -> rIst: (M5_STATE'=Start)&(tmp5'=0);
@@ -314,7 +314,7 @@ module Validator6
 	numFinBlocks6 : [0..N] init 0;
 	finalized6 : bool init false;
 	justified6 : bool init false;
-	succAttack6 : bool init false;
+	eclipseAttack6 : bool init false;
 
   	[] (M6_STATE=Start) -> p : (justified6'=false)&(b6'=createB(lastJustified6,B6,c6))&(c6'=c6+1)&(M6_STATE'=Winner);
   	[] (M6_STATE=Start) -> np : (M6_STATE'=Lost);
@@ -330,7 +330,7 @@ module Validator6
 
   	[voteBlock6] (M6_STATE=Vote) -> 1 : (listCheckpoints6'=addBlockSet(listCheckpoints6,b6))&(M6_STATE'=Start);
 
-  	[] (M6_STATE=Check)&(votes6>=2/3*tot_stake)&(heightLast6=heightCheckpoint6+EpochSize) -> rIst : (numFinBlocks6'=numFinBlocks6+1)&(lastFinalized6'=lastJustified6)&(lastJustified6'=lastCheck6)&(succAttack6'=((isVictim(b6))?true:false))&(heightCheckpoint6'=heightLast6)&(listCheckpoints6'=removeBlock(listCheckpoints6,lastCheck6))&(B6'=updateHF(B6,lastJustified6))&(M6_STATE'=Fin)&(tmp6'=0)&(justified6'=true)&(finalized6'=true);
+  	[] (M6_STATE=Check)&(votes6>=2/3*tot_stake)&(heightLast6=heightCheckpoint6+EpochSize) -> rIst : (numFinBlocks6'=numFinBlocks6+1)&(lastFinalized6'=lastJustified6)&(lastJustified6'=lastCheck6)&(eclipseAttack6'=((isVictim(b6))?true:false))&(heightCheckpoint6'=heightLast6)&(listCheckpoints6'=removeBlock(listCheckpoints6,lastCheck6))&(B6'=updateHF(B6,lastJustified6))&(M6_STATE'=Fin)&(tmp6'=0)&(justified6'=true)&(finalized6'=true);
   	[] (M6_STATE=Check)&(votes6>=2/3*tot_stake)&(heightLast6!=heightCheckpoint6+EpochSize)&(heightLast6>heightCheckpoint6) -> rIst : (lastJustified6'=lastCheck6)&(heightCheckpoint6'=heightLast6)&(listCheckpoints6'=removeBlock(listCheckpoints6,lastCheck6))&(M6_STATE'=Start)&(tmp6'=0)&(B6'=updateJust(B6,lastJustified6))&(justified6'=true);
 	[] (M6_STATE=Check)&((votes6<=2/3*tot_stake)&(heightLast6<=heightCheckpoint6)|((votes6>=2/3*tot_stake)&(heightLast6<=heightCheckpoint6))) -> rIst: (listCheckpoints6'=removeBlock(listCheckpoints6,lastCheck6))&(M6_STATE'=Start)&(tmp6'=0);
 	[] (M6_STATE=Check)&(votes6<=2/3*tot_stake)&(heightLast6>heightCheckpoint6) -> rIst: (M6_STATE'=Start)&(tmp6'=0);
@@ -357,7 +357,7 @@ module Validator7
 	numFinBlocks7 : [0..N] init 0;
 	finalized7 : bool init false;
 	justified7 : bool init false;
-	succAttack7 : bool init false;
+	eclipseAttack7 : bool init false;
 
   	[] (M7_STATE=Start) -> p : (justified7'=false)&(b7'=createB(lastJustified7,B7,c7))&(c7'=c7+1)&(M7_STATE'=Winner);
   	[] (M7_STATE=Start) -> np : (M7_STATE'=Lost);
@@ -373,7 +373,7 @@ module Validator7
 
   	[voteBlock7] (M7_STATE=Vote) -> 1 : (listCheckpoints7'=addBlockSet(listCheckpoints7,b7))&(M7_STATE'=Start);
 
-  	[] (M7_STATE=Check)&(votes7>=2/3*tot_stake)&(heightLast7=heightCheckpoint7+EpochSize) -> rIst : (numFinBlocks7'=numFinBlocks7+1)&(lastFinalized7'=lastJustified7)&(lastJustified7'=lastCheck7)&(succAttack7'=((isVictim(b7))?true:false))&(heightCheckpoint7'=heightLast7)&(listCheckpoints7'=removeBlock(listCheckpoints7,lastCheck7))&(B7'=updateHF(B7,lastJustified7))&(M7_STATE'=Fin)&(tmp7'=0)&(justified7'=true)&(finalized7'=true);
+  	[] (M7_STATE=Check)&(votes7>=2/3*tot_stake)&(heightLast7=heightCheckpoint7+EpochSize) -> rIst : (numFinBlocks7'=numFinBlocks7+1)&(lastFinalized7'=lastJustified7)&(lastJustified7'=lastCheck7)&(eclipseAttack7'=((isVictim(b7))?true:false))&(heightCheckpoint7'=heightLast7)&(listCheckpoints7'=removeBlock(listCheckpoints7,lastCheck7))&(B7'=updateHF(B7,lastJustified7))&(M7_STATE'=Fin)&(tmp7'=0)&(justified7'=true)&(finalized7'=true);
   	[] (M7_STATE=Check)&(votes7>=2/3*tot_stake)&(heightLast7!=heightCheckpoint7+EpochSize)&(heightLast7>heightCheckpoint7) -> rIst : (lastJustified7'=lastCheck7)&(heightCheckpoint7'=heightLast7)&(listCheckpoints7'=removeBlock(listCheckpoints7,lastCheck7))&(M7_STATE'=Start)&(tmp7'=0)&(B7'=updateJust(B7,lastJustified7))&(justified7'=true);
 	[] (M7_STATE=Check)&((votes7<=2/3*tot_stake)&(heightLast7<=heightCheckpoint7)|((votes7>=2/3*tot_stake)&(heightLast7<=heightCheckpoint7))) -> rIst: (listCheckpoints7'=removeBlock(listCheckpoints7,lastCheck7))&(M7_STATE'=Start)&(tmp7'=0);
 	[] (M7_STATE=Check)&(votes7<=2/3*tot_stake)&(heightLast7>heightCheckpoint7) -> rIst: (M7_STATE'=Start)&(tmp7'=0);
@@ -400,7 +400,7 @@ module Validator8
 	numFinBlocks8 : [0..N] init 0;
 	finalized8 : bool init false;
 	justified8 : bool init false;
-	succAttack8 : bool init false;
+	eclipseAttack8 : bool init false;
 
   	[] (M8_STATE=Start) -> p : (justified8'=false)&(b8'=createB(lastJustified8,B8,c8))&(c8'=c8+1)&(M8_STATE'=Winner);
   	[] (M8_STATE=Start) -> np : (M8_STATE'=Lost);
@@ -416,7 +416,7 @@ module Validator8
 
   	[voteBlock8] (M8_STATE=Vote) -> 1 : (listCheckpoints8'=addBlockSet(listCheckpoints8,b8))&(M8_STATE'=Start);
 
-  	[] (M8_STATE=Check)&(votes8>=2/3*tot_stake)&(heightLast8=heightCheckpoint8+EpochSize) -> rIst : (numFinBlocks8'=numFinBlocks8+1)&(lastFinalized8'=lastJustified8)&(lastJustified8'=lastCheck8)&(succAttack8'=((isVictim(b8))?true:false))&(heightCheckpoint8'=heightLast8)&(listCheckpoints8'=removeBlock(listCheckpoints8,lastCheck8))&(B8'=updateHF(B8,lastJustified8))&(M8_STATE'=Fin)&(tmp8'=0)&(justified8'=true)&(finalized8'=true);
+  	[] (M8_STATE=Check)&(votes8>=2/3*tot_stake)&(heightLast8=heightCheckpoint8+EpochSize) -> rIst : (numFinBlocks8'=numFinBlocks8+1)&(lastFinalized8'=lastJustified8)&(lastJustified8'=lastCheck8)&(eclipseAttack8'=((isVictim(b8))?true:false))&(heightCheckpoint8'=heightLast8)&(listCheckpoints8'=removeBlock(listCheckpoints8,lastCheck8))&(B8'=updateHF(B8,lastJustified8))&(M8_STATE'=Fin)&(tmp8'=0)&(justified8'=true)&(finalized8'=true);
   	[] (M8_STATE=Check)&(votes8>=2/3*tot_stake)&(heightLast8!=heightCheckpoint8+EpochSize)&(heightLast8>heightCheckpoint8) -> rIst : (lastJustified8'=lastCheck8)&(heightCheckpoint8'=heightLast8)&(listCheckpoints8'=removeBlock(listCheckpoints8,lastCheck8))&(M8_STATE'=Start)&(tmp8'=0)&(B8'=updateJust(B8,lastJustified8))&(justified8'=true);
 	[] (M8_STATE=Check)&((votes8<=2/3*tot_stake)&(heightLast8<=heightCheckpoint8)|((votes8>=2/3*tot_stake)&(heightLast8<=heightCheckpoint8))) -> rIst: (listCheckpoints8'=removeBlock(listCheckpoints8,lastCheck8))&(M8_STATE'=Start)&(tmp8'=0);
 	[] (M8_STATE=Check)&(votes8<=2/3*tot_stake)&(heightLast8>heightCheckpoint8) -> rIst: (M8_STATE'=Start)&(tmp8'=0);
@@ -443,7 +443,7 @@ module Validator9
 	numFinBlocks9 : [0..N] init 0;
 	finalized9 : bool init false;
 	justified9 : bool init false;
-	succAttack9 : bool init false;
+	eclipseAttack9 : bool init false;
 
   	[] (M9_STATE=Start) -> p : (justified9'=false)&(b9'=createB(lastJustified9,B9,c9))&(c9'=c9+1)&(M9_STATE'=Winner);
   	[] (M9_STATE=Start) -> np : (M9_STATE'=Lost);
@@ -459,7 +459,7 @@ module Validator9
 
   	[voteBlock9] (M9_STATE=Vote) -> 1 : (listCheckpoints9'=addBlockSet(listCheckpoints9,b9))&(M9_STATE'=Start);
 
-  	[] (M9_STATE=Check)&(votes9>=2/3*tot_stake)&(heightLast9=heightCheckpoint9+EpochSize) -> rIst : (numFinBlocks9'=numFinBlocks9+1)&(lastFinalized9'=lastJustified9)&(lastJustified9'=lastCheck9)&(succAttack9'=((isVictim(b9))?true:false))&(heightCheckpoint9'=heightLast9)&(listCheckpoints9'=removeBlock(listCheckpoints9,lastCheck9))&(B9'=updateHF(B9,lastJustified9))&(M9_STATE'=Fin)&(tmp9'=0)&(justified9'=true)&(finalized9'=true);
+  	[] (M9_STATE=Check)&(votes9>=2/3*tot_stake)&(heightLast9=heightCheckpoint9+EpochSize) -> rIst : (numFinBlocks9'=numFinBlocks9+1)&(lastFinalized9'=lastJustified9)&(lastJustified9'=lastCheck9)&(eclipseAttack9'=((isVictim(b9))?true:false))&(heightCheckpoint9'=heightLast9)&(listCheckpoints9'=removeBlock(listCheckpoints9,lastCheck9))&(B9'=updateHF(B9,lastJustified9))&(M9_STATE'=Fin)&(tmp9'=0)&(justified9'=true)&(finalized9'=true);
   	[] (M9_STATE=Check)&(votes9>=2/3*tot_stake)&(heightLast9!=heightCheckpoint9+EpochSize)&(heightLast9>heightCheckpoint9) -> rIst : (lastJustified9'=lastCheck9)&(heightCheckpoint9'=heightLast9)&(listCheckpoints9'=removeBlock(listCheckpoints9,lastCheck9))&(M9_STATE'=Start)&(tmp9'=0)&(B9'=updateJust(B9,lastJustified9))&(justified9'=true);
 	[] (M9_STATE=Check)&((votes9<=2/3*tot_stake)&(heightLast9<=heightCheckpoint9)|((votes9>=2/3*tot_stake)&(heightLast9<=heightCheckpoint9))) -> rIst: (listCheckpoints9'=removeBlock(listCheckpoints9,lastCheck9))&(M9_STATE'=Start)&(tmp9'=0);
 	[] (M9_STATE=Check)&(votes9<=2/3*tot_stake)&(heightLast9>heightCheckpoint9) -> rIst: (M9_STATE'=Start)&(tmp9'=0);
@@ -486,7 +486,7 @@ module Validator10
 	numFinBlocks10 : [0..N] init 0;
 	finalized10 : bool init false;
 	justified10 : bool init false;
-	succAttack10 : bool init false;
+	eclipseAttack10 : bool init false;
 
   	[] (M10_STATE=Start) -> p : (justified10'=false)&(b10'=createB(lastJustified10,B10,c10))&(c10'=c10+1)&(M10_STATE'=Winner);
   	[] (M10_STATE=Start) -> np : (M10_STATE'=Lost);
@@ -502,7 +502,7 @@ module Validator10
 
   	[voteBlock10] (M10_STATE=Vote) -> 1 : (listCheckpoints10'=addBlockSet(listCheckpoints10,b10))&(M10_STATE'=Start);
 
-  	[] (M10_STATE=Check)&(votes10>=2/3*tot_stake)&(heightLast10=heightCheckpoint10+EpochSize) -> rIst : (numFinBlocks10'=numFinBlocks10+1)&(lastFinalized10'=lastJustified10)&(lastJustified10'=lastCheck10)&(succAttack10'=((isVictim(b10))?true:false))&(heightCheckpoint10'=heightLast10)&(listCheckpoints10'=removeBlock(listCheckpoints10,lastCheck10))&(B10'=updateHF(B10,lastJustified10))&(M10_STATE'=Fin)&(tmp10'=0)&(justified10'=true)&(finalized10'=true);
+  	[] (M10_STATE=Check)&(votes10>=2/3*tot_stake)&(heightLast10=heightCheckpoint10+EpochSize) -> rIst : (numFinBlocks10'=numFinBlocks10+1)&(lastFinalized10'=lastJustified10)&(lastJustified10'=lastCheck10)&(eclipseAttack10'=((isVictim(b10))?true:false))&(heightCheckpoint10'=heightLast10)&(listCheckpoints10'=removeBlock(listCheckpoints10,lastCheck10))&(B10'=updateHF(B10,lastJustified10))&(M10_STATE'=Fin)&(tmp10'=0)&(justified10'=true)&(finalized10'=true);
   	[] (M10_STATE=Check)&(votes10>=2/3*tot_stake)&(heightLast10!=heightCheckpoint10+EpochSize)&(heightLast10>heightCheckpoint10) -> rIst : (lastJustified10'=lastCheck10)&(heightCheckpoint10'=heightLast10)&(listCheckpoints10'=removeBlock(listCheckpoints10,lastCheck10))&(M10_STATE'=Start)&(tmp10'=0)&(B10'=updateJust(B10,lastJustified10))&(justified10'=true);
 	[] (M10_STATE=Check)&((votes10<=2/3*tot_stake)&(heightLast10<=heightCheckpoint10)|((votes10>=2/3*tot_stake)&(heightLast10<=heightCheckpoint10))) -> rIst: (listCheckpoints10'=removeBlock(listCheckpoints10,lastCheck10))&(M10_STATE'=Start)&(tmp10'=0);
 	[] (M10_STATE=Check)&(votes10<=2/3*tot_stake)&(heightLast10>heightCheckpoint10) -> rIst: (M10_STATE'=Start)&(tmp10'=0);
@@ -529,7 +529,7 @@ module Validator11
 	numFinBlocks11 : [0..N] init 0;
 	finalized11 : bool init false;
 	justified11 : bool init false;
-	succAttack11 : bool init false;
+	eclipseAttack11 : bool init false;
 
   	[] (M11_STATE=Start) -> p : (justified11'=false)&(b11'=createB(lastJustified11,B11,c11))&(c11'=c11+1)&(M11_STATE'=Winner);
   	[] (M11_STATE=Start) -> np : (M11_STATE'=Lost);
@@ -545,7 +545,7 @@ module Validator11
 
   	[voteBlock11] (M11_STATE=Vote) -> 1 : (listCheckpoints11'=addBlockSet(listCheckpoints11,b11))&(M11_STATE'=Start);
 
-  	[] (M11_STATE=Check)&(votes11>=2/3*tot_stake)&(heightLast11=heightCheckpoint11+EpochSize) -> rIst : (numFinBlocks11'=numFinBlocks11+1)&(lastFinalized11'=lastJustified11)&(lastJustified11'=lastCheck11)&(succAttack11'=((isVictim(b11))?true:false))&(heightCheckpoint11'=heightLast11)&(listCheckpoints11'=removeBlock(listCheckpoints11,lastCheck11))&(B11'=updateHF(B11,lastJustified11))&(M11_STATE'=Fin)&(tmp11'=0)&(justified11'=true)&(finalized11'=true);
+  	[] (M11_STATE=Check)&(votes11>=2/3*tot_stake)&(heightLast11=heightCheckpoint11+EpochSize) -> rIst : (numFinBlocks11'=numFinBlocks11+1)&(lastFinalized11'=lastJustified11)&(lastJustified11'=lastCheck11)&(eclipseAttack11'=((isVictim(b11))?true:false))&(heightCheckpoint11'=heightLast11)&(listCheckpoints11'=removeBlock(listCheckpoints11,lastCheck11))&(B11'=updateHF(B11,lastJustified11))&(M11_STATE'=Fin)&(tmp11'=0)&(justified11'=true)&(finalized11'=true);
   	[] (M11_STATE=Check)&(votes11>=2/3*tot_stake)&(heightLast11!=heightCheckpoint11+EpochSize)&(heightLast11>heightCheckpoint11) -> rIst : (lastJustified11'=lastCheck11)&(heightCheckpoint11'=heightLast11)&(listCheckpoints11'=removeBlock(listCheckpoints11,lastCheck11))&(M11_STATE'=Start)&(tmp11'=0)&(B11'=updateJust(B11,lastJustified11))&(justified11'=true);
 	[] (M11_STATE=Check)&((votes11<=2/3*tot_stake)&(heightLast11<=heightCheckpoint11)|((votes11>=2/3*tot_stake)&(heightLast11<=heightCheckpoint11))) -> rIst: (listCheckpoints11'=removeBlock(listCheckpoints11,lastCheck11))&(M11_STATE'=Start)&(tmp11'=0);
 	[] (M11_STATE=Check)&(votes11<=2/3*tot_stake)&(heightLast11>heightCheckpoint11) -> rIst: (M11_STATE'=Start)&(tmp11'=0);
@@ -572,7 +572,7 @@ module Validator12
 	numFinBlocks12 : [0..N] init 0;
 	finalized12 : bool init false;
 	justified12 : bool init false;
-	succAttack12 : bool init false;
+	eclipseAttack12 : bool init false;
 
   	[] (M12_STATE=Start) -> p : (justified12'=false)&(b12'=createB(lastJustified12,B12,c12))&(c12'=c12+1)&(M12_STATE'=Winner);
   	[] (M12_STATE=Start) -> np : (M12_STATE'=Lost);
@@ -588,7 +588,7 @@ module Validator12
 
   	[voteBlock12] (M12_STATE=Vote) -> 1 : (listCheckpoints12'=addBlockSet(listCheckpoints12,b12))&(M12_STATE'=Start);
 
-  	[] (M12_STATE=Check)&(votes12>=2/3*tot_stake)&(heightLast12=heightCheckpoint12+EpochSize) -> rIst : (numFinBlocks12'=numFinBlocks12+1)&(lastFinalized12'=lastJustified12)&(lastJustified12'=lastCheck12)&(succAttack12'=((isVictim(b12))?true:false))&(heightCheckpoint12'=heightLast12)&(listCheckpoints12'=removeBlock(listCheckpoints12,lastCheck12))&(B12'=updateHF(B12,lastJustified12))&(M12_STATE'=Fin)&(tmp12'=0)&(justified12'=true)&(finalized12'=true);
+  	[] (M12_STATE=Check)&(votes12>=2/3*tot_stake)&(heightLast12=heightCheckpoint12+EpochSize) -> rIst : (numFinBlocks12'=numFinBlocks12+1)&(lastFinalized12'=lastJustified12)&(lastJustified12'=lastCheck12)&(eclipseAttack12'=((isVictim(b12))?true:false))&(heightCheckpoint12'=heightLast12)&(listCheckpoints12'=removeBlock(listCheckpoints12,lastCheck12))&(B12'=updateHF(B12,lastJustified12))&(M12_STATE'=Fin)&(tmp12'=0)&(justified12'=true)&(finalized12'=true);
   	[] (M12_STATE=Check)&(votes12>=2/3*tot_stake)&(heightLast12!=heightCheckpoint12+EpochSize)&(heightLast12>heightCheckpoint12) -> rIst : (lastJustified12'=lastCheck12)&(heightCheckpoint12'=heightLast12)&(listCheckpoints12'=removeBlock(listCheckpoints12,lastCheck12))&(M12_STATE'=Start)&(tmp12'=0)&(B12'=updateJust(B12,lastJustified12))&(justified12'=true);
 	[] (M12_STATE=Check)&((votes12<=2/3*tot_stake)&(heightLast12<=heightCheckpoint12)|((votes12>=2/3*tot_stake)&(heightLast12<=heightCheckpoint12))) -> rIst: (listCheckpoints12'=removeBlock(listCheckpoints12,lastCheck12))&(M12_STATE'=Start)&(tmp12'=0);
 	[] (M12_STATE=Check)&(votes12<=2/3*tot_stake)&(heightLast12>heightCheckpoint12) -> rIst: (M12_STATE'=Start)&(tmp12'=0);
@@ -824,4 +824,4 @@ endmodule
 
 label "someJustified" =  justified3 = true | justified4 = true | justified5 = true | justified6 = true | justified7 = true | justified8 = true | justified9 = true | justified10 = true | justified11 = true | justified12 = true;
 label "someFinalized" = finalized0 = true | finalized1 = true | finalized2 = true | finalized3 = true | finalized4 = true | finalized5 = true | finalized6 = true | finalized7 = true | finalized8 = true | finalized9 = true | finalized10 = true | finalized11 = true | finalized12 = true;
-label "succAttack" = succAttack0 = true | succAttack1 = true | succAttack2 = true | succAttack3 = true | succAttack4 = true | succAttack5 = true | succAttack6 = true | succAttack7 = true | succAttack8 = true | succAttack9 = true | succAttack10 = true | succAttack11 = true | succAttack12 = true ;
+label "eclipseAttack" = eclipseAttack0 = true | eclipseAttack1 = true | eclipseAttack2 = true | eclipseAttack3 = true | eclipseAttack4 = true | eclipseAttack5 = true | eclipseAttack6 = true | eclipseAttack7 = true | eclipseAttack8 = true | eclipseAttack9 = true | eclipseAttack10 = true | eclipseAttack11 = true | eclipseAttack12 = true ;
