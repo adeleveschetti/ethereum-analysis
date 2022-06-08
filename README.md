@@ -30,8 +30,8 @@
 -> To run an experiment from command line, it is possible to write:
                             prism model.prism property -const -sim -simmethod ci
   where 
-    - model.prism is the name of the file
-    - property is the property to analyze (e.g. P=?[F<=T "someJustified"]) 
-    - after const it is supposed to define the variables not initialized in the model, in our case the only variable not initialize is epochs
+    * model.prism is the name of the file
+    * property is the property to analyze (e.g. P=?[F<=T "someJustified"]) 
+    * after const it is supposed to define the variables not initialized in the model, in our case the only variable not initialize is epochs
   For instance, if you want to analyze the probability that someone justifies a block depending on the number of epochs you should write:
                             prism 13_nodes.prism P=?[F<=T "someJustified"] -const epochs=0:5:20 -sim -simmethod ci
