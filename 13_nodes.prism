@@ -1,21 +1,15 @@
 ctmc
 
-const int EpochSize ;
-const k;
-const double rMw ; // delay blocchi
+const int EpochSize = 64;
+const double rMw=1/12.6 ; // delay blocchi
 const epochs;
 const double T=epochs*EpochSize*(1/p);
-
-const int time;
-const double mR = 1/time; // rate creazione blocco
-const double lR = 1-mR;
 
 const double rC = 1/(14*EpochSize);
 const double rIst = 100;
 const double r = 1;
-const double rateVote ;
 const double p =1/14;
-const double np = 10;
+const double np = 1-p;
 
 const int penality = 30;
 
