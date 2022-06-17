@@ -822,6 +822,14 @@ module Network
 
 endmodule
 
+module Global
+
+	diff : [0..N] init 0;
+
+	[] (M_STATE = Move) | (M1_STATE = Move) | (M2_STATE = Move) | (M3_STATE = Move) | (M4_STATE = Move) | (M5_STATE = Move) | (M6_STATE = Move) | (M7_STATE = Move) | (M8_STATE = Move) | (M_STATE = Move) | (M9_STATE = Move) | (M10_STATE = Move) | (M11_STATE = Move) | (M12_STATE = Move) -> 1 : (diff'=calculateFork(B,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12));
+
+endmodule
+
 label "someJustified" =  justified3 = true | justified4 = true | justified5 = true | justified6 = true | justified7 = true | justified8 = true | justified9 = true | justified10 = true | justified11 = true | justified12 = true;
 label "someFinalized" = finalized0 = true | finalized1 = true | finalized2 = true | finalized3 = true | finalized4 = true | finalized5 = true | finalized6 = true | finalized7 = true | finalized8 = true | finalized9 = true | finalized10 = true | finalized11 = true | finalized12 = true;
 label "eclipseAttack" = eclipseAttack0 = true | eclipseAttack1 = true | eclipseAttack2 = true | eclipseAttack3 = true | eclipseAttack4 = true | eclipseAttack5 = true | eclipseAttack6 = true | eclipseAttack7 = true | eclipseAttack8 = true | eclipseAttack9 = true | eclipseAttack10 = true | eclipseAttack11 = true | eclipseAttack12 = true ;
