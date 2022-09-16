@@ -6,9 +6,7 @@
 
 3. properties.prop <--- list of the properties analyzed in the paper (PRISM syntax)
 
-4. prob_safety.eps <--- results for the analysis of the accountable safety property
-
-5. prob_liveness.eps <--- results for the analysis of the plausible liveness property
+4. folder Experiments <--- contains the results of some experiments not included in the article
 
 
 # Instructions for the installation of PRISM+
