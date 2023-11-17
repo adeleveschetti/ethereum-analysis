@@ -18,11 +18,6 @@
 -> To run, execute bin/xprism or bin/prism
 
 
-# Docker
-
--> We also provide a docker image with our implementation, available at https://hub.docker.com/repository/docker/meivan/bitprism
-
-
 # Instructions to run an experiment
 
 -> To run an experiment from command line, it is possible to write:
